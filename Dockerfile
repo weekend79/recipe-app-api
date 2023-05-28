@@ -3,9 +3,7 @@ LABEL maintainer="wknd79"
 
 ENV PYTHONUNBUFFERED 1
 
-COPY ./requirements.txt ./requirements.txt
-RUN pip install -r /requirements.txt
-
+COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
 WORKDIR /app
