@@ -54,7 +54,6 @@ class PublicRecipeAPITests(TestCase):
 
     def test_auth_required(self):
         """Test auth is required to call API."""
-
         res = self.client.get(RECIPES_URL)
 
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -106,7 +105,7 @@ class PrivateRecipeApiTests(TestCase):
     def test_create_recipe(self):
         """Test creating a recipe."""
         payload = {
-            'title': 'sample recipe',
+            'title': 'Sample recipe',
             'time_minutes': 30,
             'price': Decimal('5.99'),
         }
@@ -149,8 +148,9 @@ class PrivateRecipeApiTests(TestCase):
         payload = {
             'title': 'New recipe title',
             'link': 'https://example.com/new-recipe.pdf',
+            'description': 'New recipe description',
             'time_minutes': 10,
-            'price': Decimal('2.50')
+            'price': Decimal('2.50'),
         }
         url = detail_url(recipe.id)
         res = self.client.put(url, payload)
@@ -183,7 +183,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())
 
-    def test_delete_other_users_recipe_error(self):
+    def test_recipe_other_users_recipe_error(self):
         """Test trying to delete another users recipe gives error."""
         new_user = create_user(email='user2@example.com', password='test123')
         recipe = create_recipe(user=new_user)

@@ -1,12 +1,12 @@
 """
-Test for the tags API.
+Tests for the tags API.
 """
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
 
 from rest_framework import status
-from rest_framework import APIClient
+from rest_framework.test import APIClient
 
 from core.models import Tag
 
@@ -21,7 +21,7 @@ def create_user(email='user@example.com', password='testpass123'):
     return get_user_model().objects.create_user(email=email, password=password)
 
 
-class PublicTagsApiTest(TestCase):
+class PublicTagsApiTests(TestCase):
     # Test unauthenticated API requests.
 
     def setUp(self):
@@ -42,8 +42,8 @@ class PrivateTagsApiTests(TestCase):
         self.client = APIClient()
         self.client.force_authenticate(self.user)
 
-    def test_retrive_tags(self):
-        # Test retriving a list of tags.
+    def test_retrieve_tags(self):
+        # Test retrieving a list of tags.
         Tag.objects.create(user=self.user, name='Vegan')
         Tag.objects.create(user=self.user, name='Dessert')
 
