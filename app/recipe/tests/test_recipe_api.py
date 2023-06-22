@@ -202,8 +202,8 @@ class PrivateRecipeApiTests(TestCase):
         payload = {
             'title': 'Thai Prawn Curry',
             'time_minutes': 30,
-            'price': Decimal(2.50),
-            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}]
+            'price': Decimal('2.50'),
+            'tags': [{'name': 'Thai'}, {'name': 'Dinner'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
@@ -247,7 +247,7 @@ class PrivateRecipeApiTests(TestCase):
         """Test creating tag when updating a recipe."""
         recipe = create_recipe(user=self.user)
 
-        payload = {'tags': [{'name': 'lunch'}]}
+        payload = {'tags': [{'name': 'Lunch'}]}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format='json')
 
